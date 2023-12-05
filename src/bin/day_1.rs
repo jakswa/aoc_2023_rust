@@ -35,14 +35,14 @@ fn worddig(line: &str, digs: [&str; 9]) -> (usize, usize) {
     let word = digs
         .into_iter()
         .enumerate()
-        .filter(|(index, dig)| line.contains(dig))
+        .filter(|(_index, dig)| line.contains(dig))
         .map(|(index, dig)| (line.find(dig).unwrap(), index + 1))
         .min_by_key(|(index, _dig)| index.clone());
     let digit = line
         .chars()
         .into_iter()
         .enumerate()
-        .find(|(index, c)| c >= &'0' && c <= &'9')
+        .find(|(_index, c)| c >= &'0' && c <= &'9')
         .map(|(index, c)| (index, c.to_digit(10).unwrap() as usize));
 
     if let Some(wm) = word {

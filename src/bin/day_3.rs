@@ -44,21 +44,16 @@ fn part2(input: &str) -> isize {
     let matcher = regex::Regex::new(r"\d+").unwrap();
 
     let mut words: Vec<Word> = vec![];
-    let grid = input
-        .lines()
-        .enumerate()
-        .map(|(yind, line)| {
-            matcher.find_iter(line).for_each(|capture| {
-                words.push(Word {
-                    str: capture.as_str().to_string(),
-                    yind,
-                    xstart: capture.start(),
-                    xend: capture.end(),
-                });
+    input.lines().enumerate().for_each(|(yind, line)| {
+        matcher.find_iter(line).for_each(|capture| {
+            words.push(Word {
+                str: capture.as_str().to_string(),
+                yind,
+                xstart: capture.start(),
+                xend: capture.end(),
             });
-            line.chars().collect::<Vec<char>>()
-        })
-        .collect::<Vec<Vec<char>>>();
+        });
+    });
 
     let mut sum = 0;
     input.lines().enumerate().for_each(|(yind, line)| {
